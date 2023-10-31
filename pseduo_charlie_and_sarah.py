@@ -35,6 +35,8 @@ def printLayout(Str word, )
 """
 import random
 
+
+
 dataset = ["door", "window"]
 
 wordSkeleton = []
@@ -42,20 +44,22 @@ previousGuesses = []
 hanger = [[' ' for _ in range(6)] for _ in range(7)]
 rows = len(hanger)
 cols = len(hanger[0])
-
 wordSelected = dataset[random.randrange(len(dataset))]
+
+def guessAndCheck():
+    _letterGuess = input("Type in a letter ")
+    for letter in wordSelected:
+        if _letterGuess == letter:
+            wordSkeleton[wordSelected.index(_letterGuess)] = letter
+        previousGuesses.append(_letterGuess)  
 
 for letter in wordSelected:
     wordSkeleton.append("_")
 
-_LetterGuess = input("Type in a letter ")
-
-for letter in wordSelected:
-    if _LetterGuess == letter:
-        wordSkeleton[wordSelected.index(_LetterGuess)] = letter
-    previousGuesses.append(_LetterGuess)  
+guessAndCheck()
 print(wordSkeleton)
-#def updateWord(Str, word)
+
+
 
 def printHanger(hanger):
     hanger[0][1] = "-"
@@ -74,10 +78,12 @@ def printHanger(hanger):
     hanger[6][4] = "-"
     hanger[6][5] = "-"
 
-    for i in range(rows):
-        for j in range(cols):
-            print(hanger[i][j])
+    print(hanger[0][1], hanger[0][2], hange)
+    
+    # if
+    # print(hanger[0][1], hanger[0][2], hanger[0][3], hanger[0,4])
+    # print("      ", hanger[1,4])
+
+
    
 #   #  if s
-printHanger(hanger)
-print(hanger)
