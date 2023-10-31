@@ -78,7 +78,7 @@ def printHanger(hanger):
     hanger[6][4] = "-"
     hanger[6][5] = "-"
 
-    print(hanger[0][1], hanger[0][2], hange)
+    print(hanger[0][1], hanger[0][2], hanger[0][3],)
     
     # if
     # print(hanger[0][1], hanger[0][2], hanger[0][3], hanger[0,4])
