@@ -35,7 +35,7 @@ def printLayout(Str word, )
 """
 import random
 
-dataset = ["door"]
+dataset = ["door","charlie","love"]
 wordSkeleton = []
 previousGuesses = []
 hanger = [[' ' for _ in range(6)] for _ in range(7)]
@@ -147,10 +147,22 @@ def printHanger(hanger):
         print(hanger[5][0]," ",hanger[5][2],"", hanger[5][4])
         print(" ",hanger[6][1], hanger[6][2], hanger[6][3], hanger[6][4], hanger[6][5])
 
+def checkIfGameOver():
+    lettersRemaining = len(wordSelected)
+    for value in wordSkeleton:
+        if value != "_":
+            lettersRemaining -= 1
+    if numWrongGuesses >= 6:
+         print("You lose")
+         exit()
+    if lettersRemaining == 0:
+        print("You win")
+        exit()
 
 def guessAndCheck():
     goodGuess = False
     shouldAppend = True
+    index = 0
     _letterGuess = input("Type in a letter ")
     for guess in previousGuesses:
         if _letterGuess == guess:
@@ -161,10 +173,11 @@ def guessAndCheck():
         shouldAppend = False
     for letter in wordSelected:
         if _letterGuess == letter:
-            wordSkeleton[wordSelected.index(_letterGuess)] = letter
+            wordSkeleton[index] = letter
             goodGuess = True
         print(letter)
         print(_letterGuess)
+        index += 1
     if not goodGuess:
         global numWrongGuesses
         numWrongGuesses += 1
@@ -173,12 +186,15 @@ def guessAndCheck():
     print("wordske",wordSkeleton)
     print("prevguess",previousGuesses)
 
-for letter in wordSelected:
-    wordSkeleton.append("_")
+def setup():
+    for letter in wordSelected:
+        wordSkeleton.append("_")
 
+setup()
 while not gameOver:
+     checkIfGameOver()
      guessAndCheck()
      printHanger(hanger)
-     if numWrongGuesses >= 6:
-         gameOver = True
+     
+         
 
