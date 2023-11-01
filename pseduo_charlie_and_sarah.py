@@ -35,7 +35,7 @@ def printLayout(Str word, )
 """
 import random
 
-dataset = ["door", "window"]
+dataset = ["door"]
 wordSkeleton = []
 previousGuesses = []
 hanger = [[' ' for _ in range(6)] for _ in range(7)]
@@ -44,26 +44,6 @@ cols = len(hanger[0])
 wordSelected = dataset[random.randrange(len(dataset))]
 numWrongGuesses = 0
 gameOver = False
-
-def guessAndCheck():
-    _letterGuess = input("Type in a letter ")
-    for guess in previousGuesses:
-        if _letterGuess == guess:
-            guessAndCheck()
-    for letter in wordSelected:
-        if _letterGuess == letter:
-            wordSkeleton[wordSelected.index(_letterGuess)] = letter
-    previousGuesses.append(_letterGuess)  
-    print(wordSkeleton)
-    print(previousGuesses)
-
-for letter in wordSelected:
-    wordSkeleton.append("_")
-
-while not gameOver:
-     guessAndCheck()
-
-
 
 def printHanger(hanger):
     hanger[0][1] = "-"
@@ -92,61 +72,113 @@ def printHanger(hanger):
         print("      ", hanger[5][4])
         print(hanger[6][1], hanger[6][2], hanger[6][3], hanger[6][4], hanger[6][5])
 
-    if numWrongGuesses == 1:
+    elif numWrongGuesses == 1:
         hanger[2][1] = 'O'
 
         print(" ", hanger[0][1], hanger[0][2], hanger[0][3], hanger[0][4])
         print(" ", hanger[1][1], "  ", hanger[1][1])
-        print(" ", hanger[2][1],"    ", hanger[1][4])
+        print(" ", hanger[2][1],"  ", hanger[1][4])
         print("      ", hanger[2][4])
         print("      ", hanger[3][4])
         print("      ", hanger[4][4])
         print("      ", hanger[5][4])
         print(" ", hanger[6][1], hanger[6][2], hanger[6][3], hanger[6][4], hanger[6][5])
 
-    if numWrongGuesses == 2:
+    elif numWrongGuesses == 2:
         hanger[3][1] = '|'
         hanger[4][1] = '|'
 
 
         print(" ", hanger[0][1], hanger[0][2], hanger[0][3], hanger[0][4])
         print(" ", hanger[1][1], "  ", hanger[1][1])
-        print(" ", hanger[2][1],"    ", hanger[1][4])
-        print(" ", hanger[3][1],"    ", hanger[2][4])
-        print(" ", hanger[4][1],"     ", hanger[3][4])
-        print("      ", hanger[4][4])
+        print(" ", hanger[2][1],"  ", hanger[1][4])
+        print(" ", hanger[3][1],"  ", hanger[2][4])
+        print(" ", hanger[4][1],"  ", hanger[3][4])
+        print("    ",hanger[5][1], hanger[4][4])
         print("      ", hanger[5][4])
         print(" ", hanger[6][1], hanger[6][2], hanger[6][3], hanger[6][4], hanger[6][5])
     
-if numWrongGuesses == 3:
+    elif numWrongGuesses == 3:
         hanger[3][0] = '\\'
 
         print(" ", hanger[0][1], hanger[0][2], hanger[0][3], hanger[0][4])
         print(" ", hanger[1][1], "  ", hanger[1][1])
-        print(" ",hanger[2][1],"    ", hanger[1][4])
-        print(hanger[3][0], hanger[3][1],"    ", hanger[2][4])
-        print(" ",hanger[4][1],"     ", hanger[3][4])
+        print(" ",hanger[2][1],"  ", hanger[1][4])
+        print(hanger[3][0], hanger[3][1],"  ", hanger[2][4])
+        print(" ",hanger[4][1],"  ", hanger[3][4])
         print("      ", hanger[4][4])
         print("      ", hanger[5][4])
         print(" ",hanger[6][1], hanger[6][2], hanger[6][3], hanger[6][4], hanger[6][5])
 
-if numWrongGuesses == 4:
+    elif numWrongGuesses ==4:
         hanger[3][2] = '/'
+        
+        print(" ", hanger[0][1], hanger[0][2], hanger[0][3], hanger[0][4])
+        print(" ", hanger[1][1], "  ", hanger[1][1])
+        print(" ",hanger[2][1],"  ", hanger[1][4])
+        print(hanger[3][0], hanger[3][1],hanger[3][2],"", hanger[2][4])
+        print(" ",hanger[4][1],"  ", hanger[3][4])
+        print("      ", hanger[4][4])
+        print("      ", hanger[5][4])
+        print(" ",hanger[6][1], hanger[6][2], hanger[6][3], hanger[6][4], hanger[6][5])
+       
+
+    elif numWrongGuesses == 5:
+        hanger[5][0] = '/'
 
         print(" ", hanger[0][1], hanger[0][2], hanger[0][3], hanger[0][4])
         print(" ", hanger[1][1], "  ", hanger[1][1])
-        print(" ",hanger[2][1],"    ", hanger[1][4])
-        print(hanger[3][0], hanger[3][1], hanger[3][2],"   ", hanger[2][4])
-        print(" ",hanger[4][1],"     ", hanger[3][4])
+        print(" ",hanger[2][1],"  ", hanger[1][4])
+        print(hanger[3][0], hanger[3][1], hanger[3][2],"", hanger[2][4])
+        print(" ",hanger[4][1],"  ", hanger[3][4])
         print("      ", hanger[4][4])
-        print("      ", hanger[5][4])
+        print(hanger[5][0],"    ", hanger[5][4])
         print(" ",hanger[6][1], hanger[6][2], hanger[6][3], hanger[6][4], hanger[6][5])
 
-printHanger(hanger)
-    # if
-    # print(hanger[0][1], hanger[0][2], hanger[0][3], hanger[0,4])
-    # print("      ", hanger[1,4])
+    elif numWrongGuesses == 6:
+        hanger[5][2] = '\\'
+
+        print(" ", hanger[0][1], hanger[0][2], hanger[0][3], hanger[0][4])
+        print(" ", hanger[1][1], "  ", hanger[1][1])
+        print(" ",hanger[2][1],"  ", hanger[1][4])
+        print(hanger[3][0], hanger[3][1], hanger[3][2],"", hanger[2][4])
+        print(" ",hanger[4][1],"  ", hanger[3][4])
+        print("      ", hanger[4][4])
+        print(hanger[5][0]," ",hanger[5][2],"", hanger[5][4])
+        print(" ",hanger[6][1], hanger[6][2], hanger[6][3], hanger[6][4], hanger[6][5])
 
 
-   
-#   #  if s
+def guessAndCheck():
+    goodGuess = False
+    shouldAppend = True
+    _letterGuess = input("Type in a letter ")
+    for guess in previousGuesses:
+        if _letterGuess == guess:
+            guessAndCheck()
+            shouldAppend = False
+    if len(_letterGuess) > 1:
+        guessAndCheck()
+        shouldAppend = False
+    for letter in wordSelected:
+        if _letterGuess == letter:
+            wordSkeleton[wordSelected.index(_letterGuess)] = letter
+            goodGuess = True
+        print(letter)
+        print(_letterGuess)
+    if not goodGuess:
+        global numWrongGuesses
+        numWrongGuesses += 1
+    if shouldAppend == True:
+        previousGuesses.append(_letterGuess)  
+    print("wordske",wordSkeleton)
+    print("prevguess",previousGuesses)
+
+for letter in wordSelected:
+    wordSkeleton.append("_")
+
+while not gameOver:
+     guessAndCheck()
+     printHanger(hanger)
+     if numWrongGuesses >= 6:
+         gameOver = True
+
