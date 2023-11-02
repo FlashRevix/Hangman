@@ -34,14 +34,23 @@ def printLayout(Str word, )
     
 """
 import random
+import pandas as pd
+import csv
 
-dataset = ["door","charlie","love"]
+#dataSet = pd.read_csv('https://github.com/pkLazer/password_rank/blob/master/4000-most-common-english-words-csv.csv')
+with open('/Users/charlie/Downloads/4000-most-common-english-words-csv.csv',newline ='') as f:
+    reader = csv.reader(f)
+    global data 
+    data = list(reader)
+
+
+#data = ["charlie"]
 wordSkeleton = []
 previousGuesses = []
 hanger = [[' ' for _ in range(6)] for _ in range(7)]
 rows = len(hanger)
 cols = len(hanger[0])
-wordSelected = dataset[random.randrange(len(dataset))]
+wordSelected = str(data[random.randrange(len(data))]).replace("[","").replace("]","").replace("'","")
 numWrongGuesses = 0
 gameOver = False
 
@@ -152,39 +161,43 @@ def checkIfGameOver():
     for value in wordSkeleton:
         if value != "_":
             lettersRemaining -= 1
-    if numWrongGuesses >= 6:
-         print("You lose")
-         exit()
     if lettersRemaining == 0:
         print("You win")
         exit()
+    if numWrongGuesses > 5:   
+         print(f"You lose, the word was {wordSelected}")
+         exit()
+    
 
 def guessAndCheck():
     goodGuess = False
     shouldAppend = True
     index = 0
-    _letterGuess = input("Type in a letter ")
+    _letterGuess = input("Type in a letter: ").lower()
     for guess in previousGuesses:
         if _letterGuess == guess:
             guessAndCheck()
             shouldAppend = False
+            return
     if len(_letterGuess) > 1:
+        guessAndCheck()
+        shouldAppend = False
+    if _letterGuess.isdigit() == True:
         guessAndCheck()
         shouldAppend = False
     for letter in wordSelected:
         if _letterGuess == letter:
             wordSkeleton[index] = letter
             goodGuess = True
-        print(letter)
-        print(_letterGuess)
         index += 1
     if not goodGuess:
         global numWrongGuesses
         numWrongGuesses += 1
     if shouldAppend == True:
         previousGuesses.append(_letterGuess)  
-    print("wordske",wordSkeleton)
-    print("prevguess",previousGuesses)
+    print(wordSkeleton)
+    print("Previous Guesses: ",previousGuesses)
+    print(numWrongGuesses)
 
 def setup():
     for letter in wordSelected:
