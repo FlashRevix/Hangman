@@ -1,50 +1,13 @@
 """
-PSEUDOCODE 1: text --> outline
-
-Step 1) import dictonary as data set
-Step 2) create function to print hangman board, randomly pick word from dictonary
-Step 3) take guesses from player 
-Step 4) compute their input, print if right or hang if wrong, let them know if they win or lose
-
-PSEUDOCODE 2: flow chart with symbols 
-input -> 
-
-PSEUDOCODE 3: 
-
-previousGuesses = []
-correctGuesses=[]
-word = dataset[random(len(dataset)+1)]
-for i in word:
-    print("_")
-tempGuess = input("Type in a letter")
-for i in word:
-    if tempGuess = word[i]:
-        correct
-        
-
-Input guess
-
-
-def updateWord(Str, word)
-
-def printLayout(Str word, )
-    for i in word
-        
-        print("_")
-    
-"""
 import random
 import pandas as pd
 import csv
 
-#dataSet = pd.read_csv('https://github.com/pkLazer/password_rank/blob/master/4000-most-common-english-words-csv.csv')
 with open('/Users/charlie/Downloads/4000-most-common-english-words-csv.csv',newline ='') as f:
     reader = csv.reader(f)
     global data 
     data = list(reader)
 
-
-#data = ["charlie"]
 wordSkeleton = []
 previousGuesses = []
 hanger = [[' ' for _ in range(6)] for _ in range(7)]
@@ -168,7 +131,6 @@ def checkIfGameOver():
          print(f"You lose, the word was {wordSelected}")
          exit()
     
-
 def guessAndCheck():
     goodGuess = False
     shouldAppend = True
@@ -182,9 +144,11 @@ def guessAndCheck():
     if len(_letterGuess) > 1:
         guessAndCheck()
         shouldAppend = False
+        return
     if _letterGuess.isdigit() == True:
         guessAndCheck()
         shouldAppend = False
+        return
     for letter in wordSelected:
         if _letterGuess == letter:
             wordSkeleton[index] = letter
@@ -195,19 +159,25 @@ def guessAndCheck():
         numWrongGuesses += 1
     if shouldAppend == True:
         previousGuesses.append(_letterGuess)  
-    print(wordSkeleton)
-    print("Previous Guesses: ",previousGuesses)
-    print(numWrongGuesses)
 
 def setup():
     for letter in wordSelected:
         wordSkeleton.append("_")
+        print("_", end=" ")
+    print()
 
 setup()
 while not gameOver:
      checkIfGameOver()
      guessAndCheck()
      printHanger(hanger)
+     for value in wordSkeleton:
+        print(value, end='')
+     print()
+     for guess in previousGuesses:
+         print(guess, end = " ")
+     print()
+"""
      
          
 
