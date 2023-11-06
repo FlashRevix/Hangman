@@ -1,7 +1,7 @@
-"""
 import random
-import pandas as pd
 import csv
+import PySimpleGUI as sg
+
 
 with open('/Users/charlie/Downloads/4000-most-common-english-words-csv.csv',newline ='') as f:
     reader = csv.reader(f)
@@ -120,16 +120,17 @@ def printHanger(hanger):
         print(" ",hanger[6][1], hanger[6][2], hanger[6][3], hanger[6][4], hanger[6][5])
 
 def checkIfGameOver():
+    global gameOver
     lettersRemaining = len(wordSelected)
     for value in wordSkeleton:
         if value != "_":
             lettersRemaining -= 1
     if lettersRemaining == 0:
         print("You win")
-        exit()
+        gameOver = True
     if numWrongGuesses > 5:   
          print(f"You lose, the word was {wordSelected}")
-         exit()
+         gameOver = True
     
 def guessAndCheck():
     goodGuess = False
@@ -161,6 +162,7 @@ def guessAndCheck():
         previousGuesses.append(_letterGuess)  
 
 def setup():
+
     for letter in wordSelected:
         wordSkeleton.append("_")
         print("_", end=" ")
@@ -169,15 +171,18 @@ def setup():
 setup()
 while not gameOver:
      checkIfGameOver()
-     guessAndCheck()
-     printHanger(hanger)
-     for value in wordSkeleton:
-        print(value, end='')
-     print()
-     for guess in previousGuesses:
-         print(guess, end = " ")
-     print()
-"""
-     
+     if not gameOver:
+        guessAndCheck()
+        printHanger(hanger)
+        for value in wordSkeleton:
+            print(value, end=' ')
+        print()
+        for guess in previousGuesses:
+            print(guess, end = " ")
+        print()
+     elif gameOver:
+         exit()
+
+##LAST LICK MINI GAME
          
 
