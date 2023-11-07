@@ -1,7 +1,5 @@
 import random
 import csv
-import PySimpleGUI as sg
-
 
 with open('/Users/charlie/Downloads/4000-most-common-english-words-csv.csv',newline ='') as f:
     reader = csv.reader(f)
@@ -16,6 +14,10 @@ cols = len(hanger[0])
 wordSelected = str(data[random.randrange(len(data))]).replace("[","").replace("]","").replace("'","")
 numWrongGuesses = 0
 gameOver = False
+hasLastLick = True
+
+def startMiniGame():
+    print("hi")
 
 def printHanger(hanger):
     hanger[0][1] = "-"
@@ -162,27 +164,31 @@ def guessAndCheck():
         previousGuesses.append(_letterGuess)  
 
 def setup():
-
-    for letter in wordSelected:
+    for _ in wordSelected:
         wordSkeleton.append("_")
         print("_", end=" ")
     print()
 
-setup()
-while not gameOver:
-     checkIfGameOver()
-     if not gameOver:
-        guessAndCheck()
-        printHanger(hanger)
-        for value in wordSkeleton:
-            print(value, end=' ')
-        print()
-        for guess in previousGuesses:
-            print(guess, end = " ")
-        print()
-     elif gameOver:
-         exit()
+def startGame():
+    global hasLastLick
+    setup()
+    while not gameOver:
+        checkIfGameOver()
+        if not gameOver:
+            guessAndCheck()
+            printHanger(hanger)
+            for value in wordSkeleton:
+                print(value, end=' ')
+            print()
+            for guess in previousGuesses:
+                print(guess, end = " ")
+            print()
+        elif gameOver and hasLastLick:
+            global numWrongGuesses
+            hasLastLick = False
+            startMiniGame()
+            numWrongGuesses -= 1
+            
 
-##LAST LICK MINI GAME
-         
+startGame()
 
