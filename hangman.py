@@ -17,8 +17,25 @@ gameOver = False
 hasLastLick = True
 
 def startMiniGame():
-    print("hi")
-
+    global numWrongGuesses
+    global gameOver 
+    guess = int(input("Guess a number 1 to 3: "))
+    randNum = random.randrange(1,4)
+    if guess == randNum:
+        numWrongGuesses -= 1
+        gameOver = False
+        printHanger(hanger)
+        for value in wordSkeleton:
+            print(value, end=' ')
+        print()
+        for guess in previousGuesses:
+            print(guess, end = " ")
+        print()
+        startGame()
+    else:
+        print(f"You lose, the number was {randNum}, and the word was {wordSelected}")
+        exit()
+    
 def printHanger(hanger):
     hanger[0][1] = "-"
     hanger[0][2] = "-"
@@ -131,8 +148,8 @@ def checkIfGameOver():
         print("You win")
         gameOver = True
     if numWrongGuesses > 5:   
-         print(f"You lose, the word was {wordSelected}")
-         gameOver = True
+        print("You lose, but here is one last try")
+        gameOver = True
     
 def guessAndCheck():
     goodGuess = False
@@ -170,8 +187,8 @@ def setup():
     print()
 
 def startGame():
+    global numWrongGuesses
     global hasLastLick
-    setup()
     while not gameOver:
         checkIfGameOver()
         if not gameOver:
@@ -183,12 +200,14 @@ def startGame():
             for guess in previousGuesses:
                 print(guess, end = " ")
             print()
-        elif gameOver and hasLastLick:
-            global numWrongGuesses
+        elif gameOver and hasLastLick and numWrongGuesses > 5:
             hasLastLick = False
             startMiniGame()
-            numWrongGuesses -= 1
-            
+        else:
+            exit()
 
+
+            
+setup()
 startGame()
 
