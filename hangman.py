@@ -1,5 +1,6 @@
 import random
 import csv
+import os
 
 with open('/Users/charlie/Downloads/4000-most-common-english-words-csv.csv',newline ='') as f:
     reader = csv.reader(f)
@@ -19,9 +20,16 @@ hasLastLick = True
 def startMiniGame():
     global numWrongGuesses
     global gameOver 
-    guess = int(input("Guess a number 1 to 3: "))
-    randNum = random.randrange(1,4)
-    if guess == randNum:
+    guess = input("Let's flip a coin. Heads or tails? (h/t) ")
+    _num = random.randrange(1,3)
+    coinFlipStatus = ""
+    if _num == 1:
+        coinFlip = 'h'
+        coinFlipStatus = "heads"
+    elif _num == 2:
+        coinFlip = 't'
+        coinFlipStatus = "tails"
+    if guess == coinFlip:
         numWrongGuesses -= 1
         gameOver = False
         printHanger(hanger)
@@ -33,7 +41,7 @@ def startMiniGame():
         print()
         startGame()
     else:
-        print(f"You lose, the number was {randNum}, and the word was {wordSelected}")
+        print(f"You lose, it was {coinFlipStatus}, and the word was {wordSelected}")
         exit()
     
 def printHanger(hanger):
@@ -148,7 +156,10 @@ def checkIfGameOver():
         print("You win")
         gameOver = True
     if numWrongGuesses > 5:   
-        print("You lose, but here is one last try")
+        if hasLastLick:
+            print("You lose, but here is one last try")
+        else:
+            print(f"You lose, the word was {wordSelected}")
         gameOver = True
     
 def guessAndCheck():
@@ -193,6 +204,7 @@ def startGame():
         checkIfGameOver()
         if not gameOver:
             guessAndCheck()
+            os.system('clear')
             printHanger(hanger)
             for value in wordSkeleton:
                 print(value, end=' ')
@@ -205,7 +217,6 @@ def startGame():
             startMiniGame()
         else:
             exit()
-
 
             
 setup()
