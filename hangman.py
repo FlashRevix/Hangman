@@ -2,7 +2,9 @@ import random
 import csv
 import os
 
-with open('/Users/charlie/Downloads/4000-most-common-english-words-csv.csv',newline ='') as f:
+file = '/Users/charlie/Downloads/4000-most-common-english-words-csv.csv'
+
+with open(file,newline ='') as f:
     reader = csv.reader(f)
     global data 
     data = list(reader)
